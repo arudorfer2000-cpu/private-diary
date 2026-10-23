@@ -139,7 +139,7 @@ Database: SQLite file `scholarships.db` on the user's PC.
 
 4. Decided: email goes out through Outlook/Hotmail SMTP (smtp-mail.outlook.com, port 587) with an app password. Microsoft may require app passwords or may restrict basic SMTP sign-in on some accounts, so this must be tested early (TC-M1, TC-L6).
 5. Decided: the AI key is optional and the user does not have one yet. The README will explain how to create one.
-7. Decided (after review of v0.2): EU universities are in scope, and the viewer separates UK from EU. Because the EU has thousands of institutions, the starting EU list is hand-checked for Austria, Spain, Germany, France, Italy, the Netherlands, Belgium and Ireland, and other member states arrive through automatic discovery (FR-S4, FR-S6). Open: confirm this starting set.
+7. Decided (after review of v0.2): EU universities are in scope, and the viewer separates UK from EU. Because the EU has thousands of institutions, the starting EU list is hand-checked for Austria, Spain, Portugal, France, Italy, the Netherlands, Belgium and Ireland (confirmed by the user). Germany was not chosen for the starting set, so it and the other member states arrive through automatic discovery (FR-S4, FR-S6).
 6. Decided: the first source list covers the Russell Group, art-specialist institutions (Courtauld, RCA, UAL, Goldsmiths, SOAS, Sotheby's Institute), Irish universities, and all UK universities (about 140). Starting with the first three groups as hand-checked sources and adding the rest through FR-S4 is the planned order, because 140 unreviewed sources would produce a lot of noise.
 
-Open: the starting set of EU countries (item 7).
+Open: none for requirements v0.3.
