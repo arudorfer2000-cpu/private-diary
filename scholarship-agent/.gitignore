@@ -1,0 +1,5 @@
+output/
+scholarships.db
+scholarships.db.bak
+__pycache__/
+*.pyc

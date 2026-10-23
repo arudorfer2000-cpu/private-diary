@@ -1,0 +1,23 @@
+{
+  "profile": {
+    "citizenships": ["Austria", "Spain"],
+    "fields": ["art history", "economics", "arts management"],
+    "levels": ["masters", "phd"],
+    "entry_year": 2027,
+    "languages": ["English", "German", "Spanish"],
+    "countries": ["GB", "IE", "AT", "ES", "PT", "FR", "IT", "NL", "BE", "SE",
+                  "DE", "DK", "FI", "LU", "PL", "CZ", "GR", "HU", "BG", "HR", "CY", "EE", "LV", "LT", "MT", "RO", "SK", "SI"]
+  },
+  "database": "scholarships.db",
+  "output_dir": "output",
+  "delay_s": 3,
+  "viewer_url": "",
+  "email": {
+    "enabled": false,
+    "host": "smtp-mail.outlook.com",
+    "port": 587,
+    "user": "",
+    "to": "",
+    "password_env": "SCHOLAR_SMTP_PASSWORD"
+  }
+}
