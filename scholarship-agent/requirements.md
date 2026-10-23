@@ -1,12 +1,12 @@
 # Scholarship Scanner – Requirements Specification
-Version 0.2 · 2026-10-23 · Status: draft for review
+Version 0.3 · 2026-10-23 · Status: draft for review
 
 Decisions from the review dialog: Master's and PhD both; digest file plus email; AI optional; JavaScript pages supported with a headless browser; new sources added automatically with guardrails; a SQLite database with a filterable viewer, published as a private page.
 
 ## 1. Purpose
-A personal agent that regularly checks UK and Irish university pages and home-country funders, and tells one user about new or changed scholarships for **autumn 2027** entry. It reports only what the source pages say and never invents a deadline, amount or eligibility.
+A personal agent that regularly checks university pages in the UK and the EU (Ireland included) and national and home-country funders, and tells one user about new or changed scholarships for **autumn 2027** entry. It reports only what the source pages say and never invents a deadline, amount or eligibility.
 
-**Out of scope for v1:** applying on the user's behalf, multi-user accounts, a self-run server, a native mobile app, countries other than UK, Ireland, Austria and Spain, and legal or immigration advice.
+**Out of scope for v1:** applying on the user's behalf, multi-user accounts, a self-run server, a native mobile app, countries outside the UK and the EU (for example Switzerland, Norway, the US), and legal or immigration advice.
 
 ## 2. User profile (default, editable)
 Citizenships Austria and Spain · fields art history, economics, arts management · levels Master's and PhD · entry autumn 2027.
@@ -18,7 +18,8 @@ Priority: **M** must, **S** should, **C** could. "Now" means the current build a
 | ID | Requirement | Pri | Now |
 |---|---|---|---|
 | FR-S1 | Sources are listed in one config file (name, URL, level, region); adding a source needs no code change. | M | yes |
-| FR-S2 | Sources cover public and private universities in the UK and Ireland, plus national funders (AHRC, Irish Research Council) and home-country funders in Austria and Spain. | M | partial (23 sources) |
+| FR-S2 | Sources cover public and private universities in the UK and in all EU member states, plus national funders (AHRC, Irish Research Council, DAAD, Campus France and similar) and home-country funders in Austria and Spain, and EU-wide programmes (Erasmus Mundus, Marie Curie doctoral networks, ERC-linked doctoral calls). | M | partial (23 sources, UK, Ireland, Austria, Spain only) |
+| FR-S8 | The profile lists the countries to scan (default: UK plus all 27 EU member states). A country can be switched off, and auto-discovery (FR-S4) only adds sources from enabled countries. | M | no |
 | FR-S3 | Each source can be tagged with the fields it covers, so irrelevant departments can be skipped. | S | no |
 | FR-S4 | The agent discovers new universities and funders (UK and Ireland university lists, funder directories, links found on tracked pages) and starts tracking them automatically, within the guardrails of FR-S6. | M | no |
 | FR-S5 | A source can be disabled without deleting it. | S | no |
@@ -52,6 +53,7 @@ Priority: **M** must, **S** should, **C** could. "Now" means the current build a
 | FR-E2 | Any field the page does not state is shown as "not stated", never guessed. | M | partial |
 | FR-E3 | The agent judges eligibility against the profile (nationality, level, field, entry year) and labels it: eligible, not eligible, unclear. | M | no |
 | FR-E4 | It recognises Home/EU/international fee categories and flags awards limited to UK Home students or to other nationalities. | M | no |
+| FR-E9 | For EU universities the agent states whether the award is open to EU citizens, to the user's own citizenship, or to non-EU applicants only, and notes where a degree is taught only in a language other than English or the user's languages (profile: German, Spanish, English by default). | S | no |
 | FR-E5 | It flags awards for a different entry year than 2027 as "other year". | M | no |
 | FR-E6 | Every extracted fact links back to the quoted text it came from. | S | no |
 | FR-E7 | Deadlines are normalised to ISO dates; ambiguous ones ("January") are kept as text with an "approximate" mark. | S | no |
@@ -82,7 +84,8 @@ Database: SQLite file `scholarships.db` on the user's PC.
 
 | ID | Requirement | Pri | Now |
 |---|---|---|---|
-| FR-B1 | Each opportunity is a row with: name, provider, university, geography (England, Scotland, Wales, Northern Ireland, Ireland, Austria, Spain, other), topics (art history, economics, arts management, other), level (Master's, PhD, both), stipend type, value and currency, opens date, deadline, entry year, eligibility label with reason, point of contact, source URL, supporting quote, first seen, last seen, last checked, status. | M | no |
+| FR-B1 | Each opportunity is a row with: name, provider, university, country (ISO code, with UK nation where relevant), region group (UK or EU, derived from the country: Ireland and every EU member state are EU, the UK is not), language of instruction (English, local language, both, not stated), topics (art history, economics, arts management, other), level (Master's, PhD, both), stipend type, value and currency, opens date, deadline, entry year, eligibility label with reason, point of contact, source URL, supporting quote, first seen, last seen, last checked, status. | M | no |
+| FR-B10 | The region group is derived, never typed by hand, so "UK" and "EU" cannot disagree with the country. EU-wide programmes with partner universities in both the UK and the EU are stored with region group "both" and all partner countries listed. | M | no |
 | FR-B2 | Stipend type is one of: full funding, tuition waiver, stipend only, partial award, travel or research grant, other, not stated. | M | no |
 | FR-B3 | Point of contact is stored only as the organisation's public contact shown on the source page (office name, email, phone or contact-page URL); otherwise "not stated". Personal contact details are never guessed. | M | no |
 | FR-B4 | Deadlines are stored as ISO dates with an "approximate" flag; value as a number plus currency, or "not stated". | M | no |
@@ -92,7 +95,7 @@ Database: SQLite file `scholarships.db` on the user's PC.
 | FR-B8 | Opportunities whose deadline has passed become "closed", never deleted. | M | no |
 | FR-B9 | The schema has a version number; upgrades keep existing data. A backup copy is made before each run. | S | no |
 | FR-V1 | The agent exports the database to one self-contained `viewer.html` (data embedded, no external requests). It opens locally by double-click and can be published unchanged as a private page. | M | no |
-| FR-V2 | Filters: deadline date range, first-seen date range, topic, geography, level, stipend type, eligibility label, entry year, has point of contact, status (open, closing soon, closed), user mark; plus free-text search. Filters combine (AND) and can be cleared in one step. | M | no |
+| FR-V2 | Filters: deadline date range, first-seen date range, topic, region group (UK / EU / both, with a one-tap switch between UK and EU), country, language of instruction, level, stipend type, eligibility label, entry year, has point of contact, status (open, closing soon, closed), user mark; plus free-text search. Filters combine (AND) and can be cleared in one step. | M | no |
 | FR-V3 | The list can be sorted by deadline, value, first seen and name. | M | no |
 | FR-V4 | Each item opens to its details: quote, source link, point of contact, date last checked, change history, and whether the data was AI-generated. | M | no |
 | FR-V5 | Items closing within 30 days and items first seen since the last run are visually marked (not by colour alone). | S | no |
@@ -136,6 +139,7 @@ Database: SQLite file `scholarships.db` on the user's PC.
 
 4. Decided: email goes out through Outlook/Hotmail SMTP (smtp-mail.outlook.com, port 587) with an app password. Microsoft may require app passwords or may restrict basic SMTP sign-in on some accounts, so this must be tested early (TC-M1, TC-L6).
 5. Decided: the AI key is optional and the user does not have one yet. The README will explain how to create one.
+7. Decided (after review of v0.2): EU universities are in scope, and the viewer separates UK from EU. Because the EU has thousands of institutions, the starting EU list is hand-checked for Austria, Spain, Germany, France, Italy, the Netherlands, Belgium and Ireland, and other member states arrive through automatic discovery (FR-S4, FR-S6). Open: confirm this starting set.
 6. Decided: the first source list covers the Russell Group, art-specialist institutions (Courtauld, RCA, UAL, Goldsmiths, SOAS, Sotheby's Institute), Irish universities, and all UK universities (about 140). Starting with the first three groups as hand-checked sources and adding the rest through FR-S4 is the planned order, because 140 unreviewed sources would produce a lot of noise.
 
-Open: none for requirements v0.2.
+Open: the starting set of EU countries (item 7).

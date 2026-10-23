@@ -1,5 +1,5 @@
 # Scholarship Scanner – Test Specification
-Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
+Version 0.3 · 2026-10-23 · Covers requirements.md v0.3
 
 ## 1. Approach
 - **Unit tests** use local HTML/PDF fixtures and a fake HTTP server, so no test touches a real university site.
@@ -23,7 +23,7 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 | F10 | robots.txt that disallows the page |
 | F11 | Page that needs JavaScript to show its content |
 | F12 | University index page linking to 8 department pages (3 relevant, 3 irrelevant, 1 login page, 1 external site) |
-| F13 | Database seeded with 40 opportunities across all geographies, topics, levels and stipend types |
+| F13 | Database seeded with 60 opportunities across the UK, Ireland, at least 6 other EU countries and one "both" programme, with all topics, levels, stipend types and teaching languages |
 | F14 | Page listing a public contact (office name, email) and one with no contact |
 
 ## 3. Test cases
@@ -38,6 +38,8 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 | TC-S6 | FR-S6 | Run on a discovery page with 12 relevant links | Exactly 5 added; the other 7 wait for the next run |
 | TC-S7 | FR-S6 | Add a candidate that mentions no funding or fields | Goes to the "rejected candidates" log with the reason |
 | TC-S8 | FR-S7 | Run on F12 | The login page and the external site are not added |
+| TC-S11 | FR-S8 | Disable France in the profile and run discovery on a page linking to French and German universities | German source added, French source not added |
+| TC-S12 | FR-S2, FR-S8 | Count countries in the shipped config | UK plus every country in the agreed starting set has at least one source |
 | TC-S9 | FR-S6 | Remove an auto-added source | Stops being scanned and is not re-added on the next run |
 | TC-S10 | FR-S6, FR-D7 | Auto-add a source whose first check finds an urgent deadline | Appears in the digest, but not in the urgent email subject until the first check has succeeded |
 
@@ -75,6 +77,8 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 | TC-E6 | FR-E6 | Extract F1 | Each field has a quote that appears verbatim in the page text |
 | TC-E7 | FR-E7 | Extract F7 | Deadline kept as text "January", marked approximate |
 | TC-E8 | FR-E3, FR-P2 | Change the profile to a UK citizen, rerun F4 | Label changes to eligible |
+| TC-E10 | FR-E9 | Extract an EU page open to "EU citizens" and one open to "non-EU only" | First eligible for Austrian/Spanish citizens, second not eligible with reason |
+| TC-E11 | FR-E9 | Extract a page for a degree taught in Dutch | Flagged "local language only" |
 | TC-E9 | NFR-1 | Scan 100 random extracted facts in a test digest | None lacks a quote, an "AI" mark or "not stated" |
 
 ### Digest and master list
@@ -110,6 +114,8 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 | TC-B6 | FR-B7 | `scan.py mark <id> applied` then rerun | Mark kept; the item is not reported as new again |
 | TC-B7 | FR-B8 | Set the clock past a deadline and rerun | Status closed; row still present |
 | TC-B8 | FR-B9 | Open a database from the previous schema version | Upgrade keeps all rows; backup file exists |
+| TC-B10 | FR-B1, FR-B10 | Store rows for England, Scotland, Ireland, Austria, Spain | Region group UK for the first two, EU for the rest; editing the country updates the group; no way to set the group by hand |
+| TC-B11 | FR-B10 | Store an Erasmus Mundus programme with partners in Glasgow and Vienna | Region group "both"; both countries listed |
 | TC-B9 | NFR-5 | Search the database file for the API key and SMTP password | Not found |
 
 ### Viewer
@@ -117,6 +123,8 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 |---|---|---|---|
 | TC-V1 | FR-V1 | Export F13 and open `viewer.html` with the network disabled | Page loads fully with all 40 items; no external request |
 | TC-V2 | FR-V2 | Apply each filter alone on F13 (deadline range, first seen, topic, geography, level, stipend type, eligibility, entry year, has contact, status, mark) | Result count equals the expected count computed from the fixture |
+| TC-V12 | FR-V2, FR-B10 | Click UK, then EU, then both on F13 | UK shows only region group UK and "both"; EU shows only EU and "both"; counts match the fixture; one tap switches |
+| TC-V13 | FR-V2 | Filter by country Spain, then by language English | Only matching rows; combining with region group works |
 | TC-V3 | FR-V2 | Combine three filters | Only items matching all three; clearing restores 40 |
 | TC-V4 | FR-V2 | Search for a word in a name and in a quote | Matching items only |
 | TC-V5 | FR-V3 | Sort by each key, both directions | Order matches the fixture |
@@ -155,6 +163,7 @@ Version 0.2 · 2026-10-23 · Covers requirements.md v0.2
 | TC-L2 | Sample 10 digest items, compare with the official pages | Every deadline and value matches, or is marked uncertain; any mismatch is a failure |
 | TC-L3 | Run again after a week | Only truly changed pages are reported; noise rate under 20% |
 | TC-L4 | Check each region (UK, Ireland, Austria, Spain) | At least one useful item per region, or an explained gap |
+| TC-L8 | Review the first run's EU sources | Every starting-set country gives at least one useful item or an explained gap; the UK/EU switch matches the universities' real countries |
 | TC-L5 | After two runs with auto-discovery, review every auto-added source | At least 80% are relevant; each irrelevant one can be removed in one step |
 | TC-L6 | Run on the PC and read the email on the phone | Email arrives and its link opens the published viewer |
 | TC-L7 | Open the published viewer on the iPhone and use three filters | Works at phone width; counts match the database |
