@@ -134,7 +134,8 @@ Database: SQLite file `scholarships.db` on the user's PC.
 2. "Fall 2027" means a start between August and December 2027.
 3. Decided: Master's and PhD; digest file plus email; AI optional; headless browser included; automatic source discovery with guardrails; database and filterable viewer, published as a private page.
 
-Open:
-1. Which email address and SMTP provider will send the digest (Gmail needs an app password)?
-2. Is an Anthropic API key available (it is optional)?
-3. Which universities should be in the first source list beyond the 23 already there?
+4. Decided: email goes out through Outlook/Hotmail SMTP (smtp-mail.outlook.com, port 587) with an app password. Microsoft may require app passwords or may restrict basic SMTP sign-in on some accounts, so this must be tested early (TC-M1, TC-L6).
+5. Decided: the AI key is optional and the user does not have one yet. The README will explain how to create one.
+6. Decided: the first source list covers the Russell Group, art-specialist institutions (Courtauld, RCA, UAL, Goldsmiths, SOAS, Sotheby's Institute), Irish universities, and all UK universities (about 140). Starting with the first three groups as hand-checked sources and adding the rest through FR-S4 is the planned order, because 140 unreviewed sources would produce a lot of noise.
+
+Open: none for requirements v0.2.
