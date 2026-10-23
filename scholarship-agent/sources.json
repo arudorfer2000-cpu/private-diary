@@ -1,0 +1,33 @@
+{
+  "profile": {
+    "citizenships": ["Austria", "Spain"],
+    "fields": ["art history", "economics", "arts management"],
+    "levels": ["masters", "phd"],
+    "entry": "autumn 2027"
+  },
+  "sources": [
+    {"name": "Paul Mellon Centre – New Narratives Master's Scholarship", "url": "https://www.paul-mellon-centre.ac.uk/grants-and-fellowships/masters-degree-scholarships", "level": "masters", "region": "UK"},
+    {"name": "UCL History of Art – Postgraduate funding", "url": "https://www.ucl.ac.uk/art-history/postgraduate-funding", "level": "both", "region": "UK"},
+    {"name": "St Andrews Art History – PGR funding", "url": "https://st-andrews.ac.uk/art-history/prospective/pgr/funding", "level": "phd", "region": "UK"},
+    {"name": "Warwick History of Art – Fees and funding", "url": "https://warwick.ac.uk/fac/arts/scapvc/arthistory/applying/postgraduate/feesfunding", "level": "both", "region": "UK"},
+    {"name": "Lancaster – AHRC and FHASS studentships", "url": "https://www.lancaster.ac.uk/humanities-arts-and-social-sciences/postgraduate-funding/ahrc-studentships-and-fhass-doctoral-studentships/", "level": "phd", "region": "UK"},
+    {"name": "Cambridge AHRC Doctoral Landscape Awards", "url": "https://www.csah.cam.ac.uk/education/cambridge-ahrc-doctoral-landscape-awards-2026-2030", "level": "phd", "region": "UK"},
+    {"name": "Courtauld – scholarships", "url": "https://courtauld.ac.uk/study/postgraduate/courtauld-scholarships", "level": "both", "region": "UK"},
+    {"name": "Edinburgh College of Art – EU scholarships", "url": "https://registryservices.ed.ac.uk/student-funding/postgraduate/international/humanities/edinburgh-college-of-art/eca-eu-scholarships-scheme", "level": "masters", "region": "UK"},
+    {"name": "Manchester – MA Arts Management, Policy and Practice", "url": "https://www.manchester.ac.uk/study/masters/courses/list/08035/ma-arts-management-policy-and-practice/", "level": "masters", "region": "UK"},
+    {"name": "Queen's Belfast – MA Arts Management", "url": "https://www.qub.ac.uk/courses/postgraduate-taught/arts-management-ma/", "level": "masters", "region": "UK"},
+    {"name": "Gates Cambridge Scholarship", "url": "https://www.gatescambridge.org/apply/", "level": "both", "region": "UK"},
+    {"name": "Oxford – Graduate funding search", "url": "https://www.ox.ac.uk/admissions/graduate/fees-and-funding", "level": "both", "region": "UK"},
+    {"name": "LSE – Graduate scholarships", "url": "https://www.lse.ac.uk/study-at-lse/Graduate/Fees-and-funding", "level": "both", "region": "UK"},
+    {"name": "UKRI / AHRC – Studentships", "url": "https://www.ukri.org/councils/ahrc/", "level": "phd", "region": "UK"},
+    {"name": "Erasmus Mundus MAGMa (Glasgow partner)", "url": "https://www.iesa.edu/ma-managing-art-cultural-heritage-global-markets-magma", "level": "masters", "region": "Europe"},
+    {"name": "TCD History of Art MPhil", "url": "https://www.tcd.ie/courses/postgraduate/courses/history-of-art-and-architecture-mphil--pgraddip/", "level": "masters", "region": "Ireland"},
+    {"name": "TCD European Excellence Scholarships", "url": "https://www.tcd.ie/study/postgraduate/scholarships-funding/irish-eu/eu-excellence.php", "level": "masters", "region": "Ireland"},
+    {"name": "TCD History of Art – research funding", "url": "https://www.tcd.ie/History_of_Art/postgraduate/research/funding.php", "level": "phd", "region": "Ireland"},
+    {"name": "UCC – Irish Research Council scholarships", "url": "https://www.ucc.ie/en/scholarships/all/allschexternal/artspgircpgs/", "level": "both", "region": "Ireland"},
+    {"name": "Irish Research Council – Government of Ireland Postgraduate", "url": "https://research.ie/funding/goipg/", "level": "both", "region": "Ireland"},
+    {"name": "la Caixa – postgraduate fellowships abroad (Spanish citizens)", "url": "https://fundacionlacaixa.org/en/postgraduate-studies-abroad", "level": "both", "region": "Spain"},
+    {"name": "Fundación Ramón Areces – postgraduate abroad (Spanish citizens)", "url": "https://www.fundacionareces.es/fundacionareces/es/becas-y-ayudas/ampliacion-de-estudios-en-el-extranjero.html", "level": "both", "region": "Spain"},
+    {"name": "OeAD – scholarship database (Austrian citizens)", "url": "https://grants.at/en/", "level": "both", "region": "Austria"}
+  ]
+}
